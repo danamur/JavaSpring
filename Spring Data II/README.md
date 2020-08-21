@@ -4,6 +4,7 @@ Temas:
 <ul>
   <li>Relaciones 1:1</li>
   <li>Relaciones 1:N</li>
+  <li>Relaciones N:N</li>
 </ul>
 <br>
 

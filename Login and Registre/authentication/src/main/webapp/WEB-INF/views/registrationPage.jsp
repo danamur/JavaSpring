@@ -23,15 +23,15 @@
 					<form:form method="POST" action="/registration" modelAttribute="user">
 						<p>
 			            	<form:label class="col-sm-10" path="email">Email:</form:label>
-			            	<form:input class="form-control col-sm-11 ml-3" type="email" path="email"/>
+			            	<form:input class="form-control col-sm-11 ml-3" type="email" path="email" required="required"/>
 			        	</p>
 			        	<p>
 			            	<form:label class="col-sm-10" path="password">Password:</form:label>
-			            	<form:password class="form-control col-sm-11 ml-3" path="password"/>
+			            	<form:password class="form-control col-sm-11 ml-3" path="password" required="required"/>
 			        	</p>
 			        	<p>
 			            	<form:label class="col-sm-10" path="passwordConfirmation">Password Confirmation:</form:label>
-			            	<form:password class="form-control col-sm-11 ml-3" path="passwordConfirmation"/>
+			            	<form:password class="form-control col-sm-11 ml-3" path="passwordConfirmation" required="required"/>
 						</p>
 				        	<input class="btn btn-outline-success ml-3 mt-3" type="submit" value="Registrar!"/>
 				    </form:form>

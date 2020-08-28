@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.codingdojo.authentication.models.User;
 import com.codingdojo.authentication.services.UserService;
+import com.codingdojo.authentication.validator.UserValidator;
 
 
 @Controller
 public class UsersController {
 	private final UserService userService;
+	private final UserValidator userValidator;
     
-    public UsersController(UserService userService) {
+    public UsersController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
+        this.userValidator = userValidator;
     }
     
     @RequestMapping("/registration")
@@ -35,7 +38,8 @@ public class UsersController {
     
     @RequestMapping(value="/registration", method=RequestMethod.POST)
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
-		if(result.hasErrors()) {
+		userValidator.validate(user, result);
+    	if(result.hasErrors()) {
 			return "views/registrationPage.jsp";
 		}
 		User u = userService.registerUser(user);

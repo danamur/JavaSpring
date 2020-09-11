@@ -38,18 +38,27 @@ public class UserService {
     
     // autenticar usuario
     public boolean authenticateUser(String email, String password) {
-        // primero encontrar el usuario por su email
         User user = userRepository.findByEmail(email);
-        // si no lo podemos encontrar por su email, retornamos false
         if(user == null) {
             return false;
-        } else {
-            // si el password coincide devolvemos true, sino, devolvemos false
+        }
+        else {
             if(BCrypt.checkpw(password, user.getPassword())) {
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
+        }
+    }
+    
+    public boolean duplicateUser(String email) {
+        User user = userRepository.findByEmail(email);
+        if(user == null) {
+            return false;
+        }
+        else {
+        	return true;
         }
     }
 }

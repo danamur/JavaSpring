@@ -22,10 +22,11 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Size(min=5)
 	@Email(message = "Email must be valid")
 	private String email;
 	
-    @Size(min=5, message="Password must be greater than 5 characters")
+    @Size(min=5, message="Password must be greater than 8 characters!")
     private String password;
 	@Transient
 	private String passwordConfirmation;

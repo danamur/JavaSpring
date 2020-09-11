@@ -27,7 +27,7 @@ public class UsersController {
     }
     
     @RequestMapping("/registration")
-    public String registerForm(@ModelAttribute("user") User user) {
+    public String registerForm(@Valid @ModelAttribute("user") User user) {
         return "/views/registrationPage.jsp";
     }
     
@@ -36,15 +36,22 @@ public class UsersController {
         return "views/loginPage.jsp";
     }
     
-    @RequestMapping(value="/registration", method=RequestMethod.POST)
-    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, HttpSession session) {
+    @RequestMapping(value="/registration", method = RequestMethod.POST)
+    public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model, HttpSession session) {
 		userValidator.validate(user, result);
     	if(result.hasErrors()) {
 			return "views/registrationPage.jsp";
 		}
-		User u = userService.registerUser(user);
-		session.setAttribute("userId", u.getId());
-    	return "redirect:/home";
+    	boolean isDuplicate = userService.duplicateUser(user.getEmail());
+    	if(isDuplicate) {
+    		model.addAttribute("error", "El email ya existe! por favor ingresar con otro dirección de correo");
+    		return "views/registrationPage.jsp";
+    	}else {
+    		User u = userService.registerUser(user);
+    		session.setAttribute("userId", u.getId());
+        	return "redirect:/home";
+    	}
+
     }
     
     @RequestMapping(value="/login", method=RequestMethod.POST)
